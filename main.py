@@ -34,13 +34,17 @@ for squad in squads:
     number_of_members_per_squad = len(squad)
     patrol_length_per_squad = time_length / number_of_squads
     patrol_length_per_duo = patrol_length_per_squad / number_of_members_per_squad * 2
+
     if time_length <= 60 * 6:
         print("Drivers will not have any duties")
     elif time_length - patrol_length_per_duo < 60 * 6:
         print("Drivers will not do a full length of patrol; the patrol_length_per_duo must be recalculated")
     else:
         for soldier in squad:
-            print(soldier)
+            if soldier.find("(Driver)") != -1:
+                print(soldier, "is driver")
+            else:
+                print(soldier)
 
 
 print(patrol_length_per_duo)
