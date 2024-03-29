@@ -2,6 +2,7 @@ from datetime import datetime
 
 i = 0
 squad = []
+squads = []
 number_of_squads = 1
 
 with open('document.txt', 'r') as file:
@@ -10,10 +11,13 @@ with open('document.txt', 'r') as file:
     for line in lines:
         if line.strip() == '':
             number_of_squads += 1
+            squads.append(squad)
+            squad = []
         else:
             squad.append(line)
-
-print(squad) 
+    squads.append(squad)
+    
+print(squads) 
     # number_of_squads = sum(1 for line in lines if line.strip() == '') + 1
 
 start_time, end_time = timeframe.split(" - ")
