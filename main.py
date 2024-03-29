@@ -2,6 +2,8 @@ from datetime import datetime
 
 squad = []
 squads = []
+arranged_squad = []
+arranged_squads = []
 number_of_squads = 1
 
 with open('document.txt', 'r') as file:
@@ -17,8 +19,6 @@ with open('document.txt', 'r') as file:
             squad.append(line)
     squads.append(squad)
 
-
-
 print(squads)
 
 start_time, end_time = timeframe.split(" - ")
@@ -29,9 +29,7 @@ if start_hour > end_hour:
     time_length = 60 * (24 - start_hour) - start_minute + 60 * end_hour + end_minute
 # elif:
     
-    
 for squad in squads:
-    print("Next squad:")
     number_of_members_per_squad = len(squad)
     patrol_length_per_squad = time_length / number_of_squads
     patrol_length_per_duo = patrol_length_per_squad / number_of_members_per_squad * 2
@@ -43,12 +41,14 @@ for squad in squads:
     else:
         for soldier in squad:
             if soldier.find("(Driver)") != -1:
-                print(soldier, "is driver")
-            else:
-                print(soldier)
+                arranged_squad.append(soldier)
+        for soldier in squad:
+            if soldier.find("(Driver)") == -1:
+                arranged_squad.append(soldier)
+        arranged_squads.append(arranged_squad)
+        arranged_squad = []
 
-
-print(patrol_length_per_duo)
+print(arranged_squads)
 
 
     
