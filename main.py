@@ -8,6 +8,7 @@ with open('document.txt', 'r') as file:
     timeframe = file.readline().strip()
     lines = file.readlines()
     for line in lines:
+        line = line.replace('\n', '')
         if line.strip() == '':
             number_of_squads += 1
             squads.append(squad)
