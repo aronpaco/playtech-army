@@ -32,20 +32,20 @@ if start_hour > end_hour:
     print(start_time_in_minutes)
 # elif:
     
-def convert_time_in_minutes_to_time(time_in_minutes):
+def convert_time_in_minutes_to_formatted_time(time_in_minutes):
     hours = str(time_in_minutes // 60)
     minutes = str(time_in_minutes % 60)
     if minutes < "10":
         minutes = "0" + minutes
     time_in_format = hours + ":" + minutes
-    print(hours)
-    print(minutes)
-    print(time_in_format)
+    # print(time_in_format)
     return time_in_format
 
-convert_time_in_minutes_to_time(1201)
+# convert_time_in_minutes_to_formatted_time(580)
     
 for squad in squads:
+    print()
+    print("--- Next squad ---")
     number_of_members_per_squad = len(squad)
     patrol_length_per_squad = time_length / number_of_squads
     patrol_length_per_duo = patrol_length_per_squad / number_of_members_per_squad * 2
@@ -55,8 +55,6 @@ for squad in squads:
     elif time_length - patrol_length_per_duo < 60 * 6:
         print("Drivers will not do a full length of patrol; the patrol_length_per_duo must be recalculated")
     else:
-        
-
         # rearranging the list so that the drivers will be first, ensuring continous sleep
         for soldier in squad:
             if soldier.find("(Driver)") != -1:
@@ -67,7 +65,14 @@ for squad in squads:
         arranged_squads.append(arranged_squad)
         arranged_squad = []
 
+        i = start_time_in_minutes
+        for soldier in squad:
+            shift_time = convert_time_in_minutes_to_formatted_time(i)
+            shift = [shift_time, soldier, soldier]
+            i += int(patrol_length_per_duo)
+            print(shift)
 
+# [time, soldier1, soldier2]
 
 # print(arranged_squads)
 
