@@ -63,14 +63,28 @@ for squad in squads:
             if soldier.find("(Driver)") == -1:
                 arranged_squad.append(soldier)
         arranged_squads.append(arranged_squad)
-        arranged_squad = []
 
         i = start_time_in_minutes
-        for soldier in squad:
+        for j in range(len(arranged_squad) // 2):
+            print(j)
+            j = j * 2
+            soldier1 = arranged_squad[j]
+            soldier2 = arranged_squad[j + 1]
             shift_time = convert_time_in_minutes_to_formatted_time(i)
-            shift = [shift_time, soldier, soldier]
+            shift = [shift_time, soldier1, soldier2]
             i += int(patrol_length_per_duo)
             print(shift)
+
+
+#        for soldier1, soldier2 in zip(arranged_squad, arranged_squad[1:]):
+#            shift_time = convert_time_in_minutes_to_formatted_time(i)
+#            shift = [shift_time, soldier1, soldier2]
+#            i += int(patrol_length_per_duo)
+#            print(shift)
+
+
+            
+        arranged_squad = []
 
 # [time, soldier1, soldier2]
 
