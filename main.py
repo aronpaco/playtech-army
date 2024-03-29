@@ -24,9 +24,12 @@ print(squads)
 start_time, end_time = timeframe.split(" - ")
 start_hour, start_minute = map(int, start_time.split(":"))
 end_hour, end_minute = map(int, end_time.split(":"))
+start_time_in_minutes = start_hour * 60 + start_minute
+end_time_in_minutes = end_hour * 60 + end_minute
 
 if start_hour > end_hour:
-    time_length = 60 * (24 - start_hour) - start_minute + 60 * end_hour + end_minute
+    time_length = 24 * 60 - start_time_in_minutes + end_time_in_minutes
+    print(time_length)
 # elif:
     
 for squad in squads:
@@ -39,6 +42,9 @@ for squad in squads:
     elif time_length - patrol_length_per_duo < 60 * 6:
         print("Drivers will not do a full length of patrol; the patrol_length_per_duo must be recalculated")
     else:
+        patrol_start_time = 1
+
+        # rearranging the list so that the drivers will be first, ensuring continous sleep
         for soldier in squad:
             if soldier.find("(Driver)") != -1:
                 arranged_squad.append(soldier)
@@ -47,6 +53,8 @@ for squad in squads:
                 arranged_squad.append(soldier)
         arranged_squads.append(arranged_squad)
         arranged_squad = []
+
+
 
 print(arranged_squads)
 
