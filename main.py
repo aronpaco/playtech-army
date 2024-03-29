@@ -19,7 +19,7 @@ with open('document.txt', 'r') as file:
             squad.append(line)
     squads.append(squad)
 
-print(squads)
+# print(squads)
 
 start_time, end_time = timeframe.split(" - ")
 start_hour, start_minute = map(int, start_time.split(":"))
@@ -29,8 +29,21 @@ end_time_in_minutes = end_hour * 60 + end_minute
 
 if start_hour > end_hour:
     time_length = 24 * 60 - start_time_in_minutes + end_time_in_minutes
-    print(time_length)
+    print(start_time_in_minutes)
 # elif:
+    
+def convert_time_in_minutes_to_time(time_in_minutes):
+    hours = str(time_in_minutes // 60)
+    minutes = str(time_in_minutes % 60)
+    if minutes < "10":
+        minutes = "0" + minutes
+    time_in_format = hours + ":" + minutes
+    print(hours)
+    print(minutes)
+    print(time_in_format)
+    return time_in_format
+
+convert_time_in_minutes_to_time(1201)
     
 for squad in squads:
     number_of_members_per_squad = len(squad)
@@ -42,7 +55,7 @@ for squad in squads:
     elif time_length - patrol_length_per_duo < 60 * 6:
         print("Drivers will not do a full length of patrol; the patrol_length_per_duo must be recalculated")
     else:
-        patrol_start_time = 1
+        
 
         # rearranging the list so that the drivers will be first, ensuring continous sleep
         for soldier in squad:
@@ -56,7 +69,7 @@ for squad in squads:
 
 
 
-print(arranged_squads)
+# print(arranged_squads)
 
 
     
