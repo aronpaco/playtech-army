@@ -33,6 +33,8 @@ if start_hour > end_hour:
 # elif:
     
 def convert_time_in_minutes_to_formatted_time(time_in_minutes):
+    if time_in_minutes >= 24 * 60:
+        time_in_minutes -= 24 * 60
     hours = str(time_in_minutes // 60)
     minutes = str(time_in_minutes % 60)
     if minutes < "10":
@@ -42,7 +44,8 @@ def convert_time_in_minutes_to_formatted_time(time_in_minutes):
     return time_in_format
 
 # convert_time_in_minutes_to_formatted_time(580)
-    
+
+i = start_time_in_minutes
 for squad in squads:
     print()
     print("--- Next squad ---")
@@ -64,9 +67,8 @@ for squad in squads:
                 arranged_squad.append(soldier)
         arranged_squads.append(arranged_squad)
 
-        i = start_time_in_minutes
+        
         for j in range(len(arranged_squad) // 2):
-            print(j)
             j = j * 2
             soldier1 = arranged_squad[j]
             soldier2 = arranged_squad[j + 1]
