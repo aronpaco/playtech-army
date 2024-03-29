@@ -1,6 +1,5 @@
 from datetime import datetime
 
-i = 0
 squad = []
 squads = []
 number_of_squads = 1
@@ -19,7 +18,6 @@ with open('document.txt', 'r') as file:
 
 print(squads)
 
-number_of_members_per_squad = 6
 
 start_time, end_time = timeframe.split(" - ")
 start_hour, start_minute = map(int, start_time.split(":"))
@@ -28,11 +26,16 @@ end_hour, end_minute = map(int, end_time.split(":"))
 if start_hour > end_hour:
     time_length = 60 * (24 - start_hour) - start_minute + 60 * end_hour + end_minute
 # elif:
+    
+    
+for i in range(0, number_of_squads):
+    number_of_members_per_squad = len(squads[i])
+    patrol_length_per_squad = time_length / number_of_squads
+    patrol_length_per_duo = patrol_length_per_squad / number_of_members_per_squad * 2
+    print("squad", i, "has", number_of_members_per_squad, "members")
 
-patrol_length_per_squad = time_length / number_of_squads
-patrol_length_per_duo = patrol_length_per_squad / number_of_members_per_squad * 2
 
-print(patrol_length_per_duo)
+print()
 # if time_length <= 60 * 6:
 #    print("Drivers will not have any duties")
 
