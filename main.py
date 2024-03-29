@@ -16,8 +16,9 @@ with open('document.txt', 'r') as file:
             squad.append(line)
     squads.append(squad)
 
-print(squads)
 
+
+print(squads)
 
 start_time, end_time = timeframe.split(" - ")
 start_hour, start_minute = map(int, start_time.split(":"))
@@ -28,16 +29,22 @@ if start_hour > end_hour:
 # elif:
     
     
-for i in range(0, number_of_squads):
-    number_of_members_per_squad = len(squads[i])
+for squad in squads:
+    print("Next squad:")
+    number_of_members_per_squad = len(squad)
     patrol_length_per_squad = time_length / number_of_squads
     patrol_length_per_duo = patrol_length_per_squad / number_of_members_per_squad * 2
-    print("squad", i, "has", number_of_members_per_squad, "members")
+    if time_length <= 60 * 6:
+        print("Drivers will not have any duties")
+    elif time_length - patrol_length_per_duo < 60 * 6:
+        print("Drivers will not do a full length of patrol; the patrol_length_per_duo must be recalculated")
+    else:
+        for soldier in squad:
+            print(soldier)
 
 
-print()
-# if time_length <= 60 * 6:
-#    print("Drivers will not have any duties")
+print(patrol_length_per_duo)
+
 
     
 
