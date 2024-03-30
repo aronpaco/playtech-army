@@ -1,9 +1,13 @@
+import json
+
 squad = []
 squads = []
 arranged_squad = []
 arranged_squads = []
 patrol_shifts = []
 stove_shifts = []
+all_patrol_shifts = []
+all_stove_shifts = []
 number_of_squads = 1
 number_of_drivers = 0
 
@@ -30,7 +34,7 @@ end_time_in_minutes = end_hour * 60 + end_minute
 
 if start_hour > end_hour:
     time_length = 24 * 60 - start_time_in_minutes + end_time_in_minutes
-    print(start_time_in_minutes)
+    # print(start_time_in_minutes)
 # elif:
     
 def convert_time_in_minutes_to_formatted_time(time_in_minutes):
@@ -48,10 +52,11 @@ def convert_time_in_minutes_to_formatted_time(time_in_minutes):
 
 start_of_shift = start_time_in_minutes
 squad_count = 0
+print(time_length)
+print()
 for squad in squads:
     number_of_drivers = 0
     l = start_time_in_minutes
-    print()
     print("Squad #" + str(squad_count + 1))
     number_of_members_per_squad = len(squad)
     duty_length_per_soldier = time_length * 2 / number_of_members_per_squad
@@ -106,11 +111,30 @@ for squad in squads:
                 stove_shift_time = convert_time_in_minutes_to_formatted_time(l)
                 stove_shift = [stove_shift_time, arranged_squad[k]]
                 l += int(stove_length_per_soldier)
+                stove_shifts.append(stove_shift)
                 # i += int(patrol_length_per_duo)
-                print(stove_shift)
+                # print(stove_shift)
+        # all_patrol_shifts.append(patrol_shifts)
+        # all_stove_shifts.append(stove_shifts)
             
         arranged_squad = []
         squad_count += 1
+    print(patrol_shifts)
+    data = {
+        "patrol_shifts": patrol_shifts,
+        "stove_shifts": stove_shifts
+    }
+    print()
+
+def save_to_json(patrol_shifts, stove_shifts):
+    
+    with open('output.json', 'w') as json_file:
+        json.dump(data, json_file, indent=4)
+    print("Data saved")
+
+# save_file = input("Do you want to save the file? (y/n) ")
+# if save_file.lower() == "y":
+save_to_json(patrol_shifts, stove_shifts)
 
 # [time, soldier1, soldier2]
 
