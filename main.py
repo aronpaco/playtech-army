@@ -1,5 +1,3 @@
-from datetime import datetime
-
 squad = []
 squads = []
 arranged_squad = []
@@ -54,8 +52,9 @@ for squad in squads:
     number_of_drivers = 0
     l = start_time_in_minutes
     print()
-    print("--- Next squad ---")
+    print("Squad #" + str(squad_count + 1))
     number_of_members_per_squad = len(squad)
+    duty_length_per_soldier = time_length * 2 / number_of_members_per_squad
     patrol_length_per_squad = time_length / number_of_squads
     # Having an odd number of soldiers will leave one free of duty, so it should not affect the length per duo:
     patrol_length_per_duo = patrol_length_per_squad / (number_of_members_per_squad // 2)
