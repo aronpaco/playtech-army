@@ -4,6 +4,8 @@ squad = []
 squads = []
 arranged_squad = []
 arranged_squads = []
+patrol_shifts = []
+stove_shifts = []
 number_of_squads = 1
 
 with open('document.txt', 'r') as file:
@@ -61,7 +63,7 @@ for squad in squads:
     elif time_length - patrol_length_per_duo < 60 * 6:
         print("Drivers will not do a full length of patrol; the patrol_length_per_duo must be recalculated")
     else:
-        # rearranging the list so that the drivers will be first or last, ensuring continous sleep
+        # rearranging the list so that the drivers will be first or last, ensuring continuous sleep
         if squad_count % 2:
             for soldier in squad:
                 if soldier.find("(Driver)") == -1:
@@ -87,13 +89,21 @@ for squad in squads:
             patrol_shift_time = convert_time_in_minutes_to_formatted_time(i)
             patrol_shift = [patrol_shift_time, soldier1, soldier2]
             i += int(patrol_length_per_duo)
-            print(patrol_shift)
+            patrol_shifts.append(patrol_shift)
+        # print(patrol_shifts)
+
         print("Stove shifts:")
+        i = start_time_in_minutes
         for k in range(len(arranged_squad)):
-            stove_shift_time = convert_time_in_minutes_to_formatted_time(l)
-            stove_shift = [stove_shift_time, arranged_squad[k]]
-            l += int(stove_length_per_soldier)
-            print(stove_shift)
+            # print(i, l)
+            # print(arranged_squad[k])
+            if arranged_squad[k].find("(Driver)") == -1:
+
+                stove_shift_time = convert_time_in_minutes_to_formatted_time(i)
+                stove_shift = [stove_shift_time, arranged_squad[k]]
+                l += int(stove_length_per_soldier)
+                i += int(patrol_length_per_duo)
+                print(stove_shift)
             
         arranged_squad = []
         squad_count += 1
