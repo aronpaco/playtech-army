@@ -1,4 +1,5 @@
 import json
+import os
 
 squad = []
 squads = []
@@ -11,22 +12,40 @@ all_stove_shifts = []
 number_of_squads = 1
 number_of_drivers = 0
 
-with open('document.txt', 'r') as file:
-    timeframe = file.readline().strip()
-    lines = file.readlines()
-    for line in lines:
-        line = line.replace('\n', '')
-        if line.strip() == '':
-            number_of_squads += 1
+file_name = "document1.txt"
+if os.path.exists(file_name):
+    with open(file_name, 'r') as file:
+        timeframe = file.readline().strip()
+        start_time, end_time = timeframe.split(" - ")
+        lines = file.readlines()
+        for line in lines:
+            line = line.replace('\n', '')
+            if line.strip() == '':
+                number_of_squads += 1
+                squads.append(squad)
+                squad = []
+            else:
+                squad.append(line)
+        squads.append(squad)
+else:
+    n = 1
+    soldier = ""
+    start_time = "20:00" # input("Insert the starting time of night routine (HH:MM): ")
+    end_time = "06:00" # input("Insert the starting time of night routine (HH:MM): ")
+    print("Enter 'n' for next squad, 'x' for end.")
+    print("If it's a driver, write (Driver) after the name. Example: 'Pvt. Swashbuckle (Driver)'.")
+    while soldier != "x":
+        soldier = input("Insert name of soldier of squad #" + str(n) + ": ")
+        if soldier == "n":
             squads.append(squad)
-            squad = []
+            n += 1
         else:
-            squad.append(line)
-    squads.append(squad)
+            squad.append(soldier)
+
+
 
 # print(squads)
 
-start_time, end_time = timeframe.split(" - ")
 start_hour, start_minute = map(int, start_time.split(":"))
 end_hour, end_minute = map(int, end_time.split(":"))
 start_time_in_minutes = start_hour * 60 + start_minute
@@ -52,7 +71,6 @@ def convert_time_in_minutes_to_formatted_time(time_in_minutes):
 
 start_of_shift = start_time_in_minutes
 squad_count = 0
-print(time_length)
 print()
 for squad in squads:
     number_of_drivers = 0
