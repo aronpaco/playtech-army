@@ -7,6 +7,7 @@ arranged_squads = []
 patrol_shifts = []
 stove_shifts = []
 number_of_squads = 1
+number_of_drivers = 0
 
 with open('document.txt', 'r') as file:
     timeframe = file.readline().strip()
@@ -50,6 +51,7 @@ def convert_time_in_minutes_to_formatted_time(time_in_minutes):
 i = start_time_in_minutes
 squad_count = 0
 for squad in squads:
+    number_of_drivers = 0
     l = start_time_in_minutes
     print()
     print("--- Next squad ---")
@@ -57,7 +59,6 @@ for squad in squads:
     patrol_length_per_squad = time_length / number_of_squads
     # Having an odd number of soldiers will leave one free of duty, so it should not affect the length per duo:
     patrol_length_per_duo = patrol_length_per_squad / (number_of_members_per_squad // 2)
-    stove_length_per_soldier = time_length / number_of_members_per_squad
     if time_length <= 60 * 6:
         print("Drivers will not have any duties")
     elif time_length - patrol_length_per_duo < 60 * 6:
@@ -71,10 +72,12 @@ for squad in squads:
             arranged_squads.append(arranged_squad)
             for soldier in squad:
                 if soldier.find("(Driver)") != -1:
+                    number_of_drivers += 1
                     arranged_squad.append(soldier)
         else:
             for soldier in squad:
                 if soldier.find("(Driver)") != -1:
+                    number_of_drivers += 1
                     arranged_squad.append(soldier)
             for soldier in squad:
                 if soldier.find("(Driver)") == -1:
@@ -93,13 +96,14 @@ for squad in squads:
         # print(patrol_shifts)
 
         print("Stove shifts:")
+        stove_length_per_soldier = time_length / (number_of_members_per_squad - number_of_drivers)
         i = start_time_in_minutes
         for k in range(len(arranged_squad)):
             # print(i, l)
             # print(arranged_squad[k])
             if arranged_squad[k].find("(Driver)") == -1:
 
-                stove_shift_time = convert_time_in_minutes_to_formatted_time(i)
+                stove_shift_time = convert_time_in_minutes_to_formatted_time(l)
                 stove_shift = [stove_shift_time, arranged_squad[k]]
                 l += int(stove_length_per_soldier)
                 i += int(patrol_length_per_duo)
