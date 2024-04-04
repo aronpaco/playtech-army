@@ -12,7 +12,7 @@ all_stove_shifts = []
 number_of_squads = 1
 number_of_drivers = 0
 
-file_name = "document1.txt"
+file_name = "document.txt"
 if os.path.exists(file_name):
     with open(file_name, 'r') as file:
         timeframe = file.readline().strip()
@@ -30,13 +30,14 @@ if os.path.exists(file_name):
 else:
     n = 1
     soldier = ""
-    start_time = "20:00" # input("Insert the starting time of night routine (HH:MM): ")
-    end_time = "06:00" # input("Insert the starting time of night routine (HH:MM): ")
+    start_time = input("Insert the starting time of night routine (HH:MM): ")
+    end_time = input("Insert the starting time of night routine (HH:MM): ")
+    print(file_name + " not found. Entering data manually...")
     print("Enter 'n' for next squad, 'x' for end.")
     print("If it's a driver, write (Driver) after the name. Example: 'Pvt. Swashbuckle (Driver)'.")
     while soldier != "x":
         soldier = input("Insert name of soldier of squad #" + str(n) + ": ")
-        if soldier == "n":
+        if soldier == "n" or soldier == "x":
             squads.append(squad)
             n += 1
         else:
